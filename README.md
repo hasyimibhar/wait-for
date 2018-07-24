@@ -18,21 +18,18 @@ wait-for:
 
 ### simple
 ```bash
-$ wait-for -it github.com:80 && echo "github is up!"
-services are ready!
-github is up!
+$ wait-for -it github.com:80 -- echo "github is up"
+github is up
 ```
 
 ### multiple hosts and custom timeout
 ```bash
-$ wait-for -t 5 -it github.com:80,bitbucket.com:80 && echo "github and bitbucket are up!"
-services are ready!
-github and bitbucket are up!
+$ wait-for -t 5 -it github.com:80,bitbucket.com:80 -- echo "github and bitbucket are up"
+github and bitbucket are up
 ```
 
 ### docker users
 ~2.7MB docker image.
 ```bash
 $ docker run --rm alioygur/wait-for -it google.com:80
-services are ready!
 ```

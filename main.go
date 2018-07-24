@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"net"
 	"os"
+	"os/exec"
 	"strings"
 	"sync"
 	"time"
@@ -61,6 +62,7 @@ func init() {
 
 func main() {
 	flag.Parse()
+
 	if len(services) == 0 {
 		flag.Usage()
 		os.Exit(1)
@@ -70,6 +72,17 @@ func main() {
 		fmt.Println(err)
 		os.Exit(1)
 	}
-	fmt.Println("services are ready!")
+
+	args := flag.Args()
+	if len(args) > 0 {
+		cmd := exec.Command(args[0], args[1:]...)
+		cmd.Stdout = os.Stdout
+		cmd.Stderr = os.Stderr
+		if err := cmd.Run(); err != nil {
+			os.Exit(1)
+			return
+		}
+	}
+
 	os.Exit(0)
 }
